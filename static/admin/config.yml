@@ -13,6 +13,24 @@ media_folder: static/img
 public_folder: /img
 
 collections:
+  - name: "item"
+    label: "Штука"
+    folder: "src/pages/item"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {
+          label: "Template Key",
+          name: "templateKey",
+          widget: "hidden",
+          default: "item-post",
+        }
+      - { label: "Заголовок", name: "title", widget: "string" }
+      - { label: "Короткое описание", name: "description", widget: "text" }
+      - { label: "Акция", name: "akcia", widget: "boolean" }
+      - { label: "Изображение", name: "image", widget: image }
+      - { label: "Контент", name: "body", widget: "markdown" }
+      - { label: "Тэги", name: "tags", widget: "list" }
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"
