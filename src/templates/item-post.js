@@ -23,10 +23,14 @@ export const ItemPostTemplate = ({
       <div className="container content">
         <div className="columns">
           <div className="column is-10 is-offset-1">
+            <h3>А вот это видимо и есть страница одной штуки ))</h3>
+            <hr />
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
             <p>{description}</p>
+            <p>Акция ли? {}</p>
+
             <ItemContent content={content} />
             {tags && tags.length ? (
               <div style={{ marginTop: `4rem` }}>
@@ -57,6 +61,7 @@ ItemPostTemplate.propTypes = {
 
 const ItemPost = ({ data }) => {
   const { markdownRemark: post } = data;
+  console.log(data.markdownRemark);
 
   return (
     <Layout>
@@ -74,7 +79,6 @@ const ItemPost = ({ data }) => {
           </Helmet>
         }
         tags={post.frontmatter.tags}
-        title={post.frontmatter.title}
       />
     </Layout>
   );

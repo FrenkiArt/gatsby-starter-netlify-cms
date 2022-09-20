@@ -92,8 +92,7 @@ export default function ItemRoll() {
                   title
                   templateKey
                   date(formatString: "MMMM DD, YYYY")
-                  featuredpost
-                  featuredimage {
+                  image {
                     childImageSharp {
                       gatsbyImageData(
                         width: 120
@@ -102,6 +101,8 @@ export default function ItemRoll() {
                       )
                     }
                   }
+                  description
+                  tags
                 }
               }
             }
