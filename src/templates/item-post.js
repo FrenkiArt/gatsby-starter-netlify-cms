@@ -5,6 +5,7 @@ import { Helmet } from "react-helmet";
 import { graphql, Link } from "gatsby";
 import Layout from "../components/Layout";
 import Content, { HTMLContent } from "../components/Content";
+import PreviewCompatibleImage from "../components/PreviewCompatibleImage";
 
 // eslint-disable-next-line
 export const ItemPostTemplate = ({
@@ -14,6 +15,8 @@ export const ItemPostTemplate = ({
   tags,
   title,
   helmet,
+  image,
+  id,
 }) => {
   const ItemContent = contentComponent || Content;
 
@@ -23,6 +26,7 @@ export const ItemPostTemplate = ({
       <div className="container content">
         <div className="columns">
           <div className="column is-10 is-offset-1">
+            <h3>id = {id}</h3>
             <h3>А вот это видимо и есть страница одной штуки ))</h3>
             <hr />
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
@@ -30,6 +34,20 @@ export const ItemPostTemplate = ({
             </h1>
             <p>{description}</p>
             <p>Акция ли? {}</p>
+            <p>
+              {image ? (
+                <div className="featured-thumbnail">
+                  <PreviewCompatibleImage
+                    imageInfo={{
+                      image: image,
+                      alt: `  ${title}`,
+                      width: image.childImageSharp.gatsbyImageData.width,
+                      height: image.childImageSharp.gatsbyImageData.height,
+                    }}
+                  />
+                </div>
+              ) : null}
+            </p>
 
             <ItemContent content={content} />
             {tags && tags.length ? (
@@ -61,12 +79,12 @@ ItemPostTemplate.propTypes = {
 
 const ItemPost = ({ data }) => {
   const { markdownRemark: post } = data;
-  console.log(data.markdownRemark);
 
   return (
     <Layout>
       <ItemPostTemplate
         content={post.html}
+        id={post.id}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
         helmet={
@@ -79,6 +97,7 @@ const ItemPost = ({ data }) => {
           </Helmet>
         }
         tags={post.frontmatter.tags}
+        image={post.frontmatter.image}
       />
     </Layout>
   );
@@ -102,6 +121,11 @@ export const pageQuery = graphql`
         title
         description
         tags
+        image {
+          childImageSharp {
+            gatsbyImageData(width: 300, quality: 100, layout: CONSTRAINED)
+          }
+        }
       }
     }
   }

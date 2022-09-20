@@ -53,6 +53,7 @@ collections:
 
   - name: "pages"
     label: "Pages"
+    create: true
     files:
       - file: "src/pages/index.md"
         label: "Landing Page"

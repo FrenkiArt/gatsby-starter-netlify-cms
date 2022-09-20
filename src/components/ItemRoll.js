@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { kebabCase } from "lodash";
 import { Link, graphql, StaticQuery } from "gatsby";
 import PreviewCompatibleImage from "./PreviewCompatibleImage";
 
@@ -19,17 +20,17 @@ class ItemRollTemplate extends React.Component {
                 }`}
               >
                 <header>
-                  {post.frontmatter.featuredimage ? (
+                  {post.frontmatter.image ? (
                     <div className="featured-thumbnail">
                       <PreviewCompatibleImage
                         imageInfo={{
-                          image: post.frontmatter.featuredimage,
-                          alt: `featured image thumbnail for post ${post.frontmatter.title}`,
+                          image: post.frontmatter.image,
+                          alt: `image image thumbnail for post ${post.frontmatter.title}`,
                           width:
-                            post.frontmatter.featuredimage.childImageSharp
+                            post.frontmatter.image.childImageSharp
                               .gatsbyImageData.width,
                           height:
-                            post.frontmatter.featuredimage.childImageSharp
+                            post.frontmatter.image.childImageSharp
                               .gatsbyImageData.height,
                         }}
                       />
@@ -44,16 +45,25 @@ class ItemRollTemplate extends React.Component {
                     </Link>
                     <span> &bull; </span>
                     <span className="subtitle is-size-5 is-block">
-                      {post.frontmatter.date}
+                      akcia? {post.frontmatter.akcia}
                     </span>
                   </p>
                 </header>
                 <p>
                   {post.excerpt}
                   <br />
+                  {post.frontmatter.description}
+                  <br />
+                  <ul className="taglist">
+                    {post.frontmatter.tags.map((tag) => (
+                      <li key={tag + `tag`}>
+                        <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
+                      </li>
+                    ))}
+                  </ul>
                   <br />
                   <Link className="button" to={post.fields.slug}>
-                    Keep Reading →
+                    Подробнее →
                   </Link>
                 </p>
               </article>
